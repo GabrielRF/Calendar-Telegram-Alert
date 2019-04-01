@@ -1,5 +1,6 @@
 from icalendar import Calendar, Event
 from datetime import datetime, timedelta, date
+from pytz import timezone
 import configparser
 import sys
 import telebot
@@ -32,9 +33,10 @@ if __name__ == '__main__':
     for component in gcal.walk('vevent'):
         if tomorrow in str(component.get('dtstart').dt):
             hstart = component.get('dtstart').dt
+            hstart = hstart.astimezone(timezone('America/Sao_Paulo'))
             hend = component.get('dtend').dt
-            hstart = str(hstart).split(' ')[1].split('+')[0]
-            hend = str(hend).split(' ')[1].split('+')[0]
+            hstart = hstart.strftime('%H:%M')
+            hend = hend.strftime('%H:%M')
             message = (message + str(component.get('summary')) +
                 '\nInício:\t' + hstart + 
                 '\nFim:\t' + hend + '\n\n'
