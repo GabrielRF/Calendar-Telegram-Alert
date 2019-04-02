@@ -35,6 +35,7 @@ if __name__ == '__main__':
             hstart = component.get('dtstart').dt
             hstart = hstart.astimezone(timezone('America/Sao_Paulo'))
             hend = component.get('dtend').dt
+            hend = hend.astimezone(timezone('America/Sao_Paulo'))
             hstart = hstart.strftime('%H:%M')
             hend = hend.strftime('%H:%M')
             message = (message + str(component.get('summary')) +
