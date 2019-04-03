@@ -30,7 +30,7 @@ if __name__ == '__main__':
     gcal = Calendar.from_ical(g.read())
     tomorrow = str(date.today() + timedelta(days=1))
     message = ''
-    for component in gcal.walk('vevent'):
+    for component in reversed(gcal.walk('vevent')):
         if tomorrow in str(component.get('dtstart').dt):
             hstart = component.get('dtstart').dt
             hstart = hstart.astimezone(timezone('America/Sao_Paulo'))
