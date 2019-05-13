@@ -32,16 +32,18 @@ if __name__ == '__main__':
     message = ''
     components = gcal.walk()
     components = filter(lambda c: c.name=='VEVENT', components)
-    components = sorted(components, key=lambda c: c.get('dtstart').dt, reverse=False)
+    components = sorted(components, key=lambda c: c.get('DTSTART').dt, reverse=False)
     for component in components:
-        if tomorrow in str(component.get('dtstart').dt):
-            hstart = component.get('dtstart').dt
+        print(str(component.get('DTSTART').dt))
+        if tomorrow in str(component.get('DTSTART').dt):
+            hstart = component.get('DTSTART').dt
             hstart = hstart.astimezone(timezone('America/Sao_Paulo'))
-            hend = component.get('dtend').dt
+            hend = component.get('DTEND').dt
             hend = hend.astimezone(timezone('America/Sao_Paulo'))
             hstart = hstart.strftime('%H:%M')
             hend = hend.strftime('%H:%M')
-            message = (message + str(component.get('summary')) +
+            summary = str(component.get('summary'))
+            message = (message + summary +
                 '\nInício:\t' + hstart + 
                 '\nFim:\t' + hend + '\n\n'
             )
